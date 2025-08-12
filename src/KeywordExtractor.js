@@ -21,38 +21,40 @@ export class KeywordExtractor {
 
   stripHtmlTags(htmlContent) {
     let result = "";
-    let insideTag = false;
-    let insideScript = false;
-    let insideStyle = false;
+    let i = 0;
+    const lowerContent = htmlContent.toLowerCase();
 
-    for (let i = 0; i < htmlContent.length; i++) {
-      const char = htmlContent[i];
-      const nextChars = htmlContent.substring(i, i + 8).toLowerCase();
-
-      // Check for script/style tags
-      if (nextChars.startsWith("<script")) {
-        insideScript = true;
-        insideTag = true;
-      } else if (nextChars.startsWith("</script")) {
-        insideScript = false;
-        insideTag = true;
-      } else if (nextChars.startsWith("<style")) {
-        insideStyle = true;
-        insideTag = true;
-      } else if (nextChars.startsWith("</style")) {
-        insideStyle = false;
-        insideTag = true;
-      } else if (char === "<") {
-        insideTag = true;
-      } else if (char === ">") {
-        insideTag = false;
+    while (i < htmlContent.length) {
+      // Detect <script> block
+      if (lowerContent.startsWith("<script", i)) {
+        const endIdx = lowerContent.indexOf("</script>", i);
+        if (endIdx === -1) break; // malformed HTML
+        i = endIdx + "</script>".length;
+        result += " "; // Add space for separation
         continue;
       }
 
-      // Only add content if not inside tags, scripts, or styles
-      if (!insideTag && !insideScript && !insideStyle) {
-        result += char;
+      // Detect <style> block
+      if (lowerContent.startsWith("<style", i)) {
+        const endIdx = lowerContent.indexOf("</style>", i);
+        if (endIdx === -1) break;
+        i = endIdx + "</style>".length;
+        result += " "; // Add space for separation
+        continue;
       }
+
+      // Skip normal HTML tags
+      if (htmlContent[i] === "<") {
+        const endTag = htmlContent.indexOf(">", i);
+        if (endTag === -1) break;
+        i = endTag + 1;
+        result += " "; // Add space for separation
+        continue;
+      }
+
+      // Add visible text
+      result += htmlContent[i];
+      i++;
     }
 
     return result;
@@ -75,6 +77,7 @@ export class KeywordExtractor {
 
       frequency.set(word, (frequency.get(word) || 0) + 1);
     }
+    console.log(frequency);
 
     return frequency;
   }

@@ -1,6 +1,9 @@
 export function getStopWords() {
   // Common English stop words
   const stopWordsList = [
+    "hour",
+    "deg",
+    "amp",
     "nbsp",
     "a",
     "an",
@@ -100,6 +103,7 @@ export function getStopWords() {
     "some",
     "such",
     "take",
+    "ist",
     "time",
     "two",
     "up",
