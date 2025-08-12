@@ -1,0 +1,17 @@
+{
+  "name": "web-crawler",
+  "version": "1.0.0",
+  "description": "A comprehensive web crawler with keyword extraction and search functionality",
+  "main": "crawler.js",
+  "type": "module",
+  "scripts": {
+    "start": "node crawler.js",
+    "test": "node test.js"
+  },
+  "bin": {
+    "crawler": "./crawler.js"
+  },
+  "keywords": ["crawler", "web-scraper", "node.js"],
+  "author": "Developer",
+  "license": "MIT"
+}

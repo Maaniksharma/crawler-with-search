@@ -1,0 +1,2 @@
+domain -> https://example.com
+domains -> https://www.iana.org/domains/example
