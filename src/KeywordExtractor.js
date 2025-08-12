@@ -69,7 +69,7 @@ export class KeywordExtractor {
 
     for (const word of words) {
       // Skip short words and stop words
-      if (word.length < 2 || this.stopWords.has(word)) {
+      if (word.length < 2 || this.stopWords.has(word) || !isNaN(Number(word))) {
         continue;
       }
 
