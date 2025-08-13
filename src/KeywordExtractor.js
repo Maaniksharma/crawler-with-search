@@ -77,7 +77,6 @@ export class KeywordExtractor {
 
       frequency.set(word, (frequency.get(word) || 0) + 1);
     }
-    console.log(frequency);
 
     return frequency;
   }
