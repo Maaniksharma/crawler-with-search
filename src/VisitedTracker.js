@@ -13,11 +13,7 @@ export class VisitedTracker {
 
   load() {
     try {
-      if (existsSync(this.visitedFile)) {
-        const content = readFileSync(this.visitedFile, "utf-8");
-        const urls = content.split("\n").filter((url) => url.trim());
-        urls.forEach((url) => this.visited.add(url));
-      }
+      //
     } catch (error) {
       // File doesn't exist or can't be read, start fresh
     }
